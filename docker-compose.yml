@@ -1,0 +1,9 @@
+version: "3.9"
+services:
+  php:
+    build:
+      context: ./tools/docker/php
+    container_name: keez-domain-php
+    volumes:
+      - .:/var/www:delegated
+      - "~/.gitconfig:/etc/gitconfig"

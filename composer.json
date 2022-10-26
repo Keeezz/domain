@@ -1,0 +1,38 @@
+{
+    "name": "keez/domain",
+    "description": "Business domain of the Keez project",
+    "type": "library",
+    "license": "LGPL",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "authors": [
+        {
+            "name": "delhombre",
+            "email": "brunodogbase@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Keez\\Domain\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Keez\\Domain\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": ">=8.1.0",
+        "psr/event-dispatcher": "^1.0",
+        "symfony/password-hasher": "^6.1",
+        "symfony/uid": "^6.1",
+        "symfony/validator": "^6.1"
+    },
+    "require-dev": {
+        "behat/behat": "^3.11",
+        "symfony/messenger": "^6.1",
+        "symfony/var-dumper": "^6.1",
+        "phpunit/phpunit": "^9.5",
+        "spatie/phpunit-watcher": "^1.23"
+    }
+}

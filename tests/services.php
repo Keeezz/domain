@@ -24,6 +24,8 @@ use Keez\Domain\Melomaniac\Register\UniqueEmailValidator;
 use Keez\Domain\Melomaniac\GetMelomaniacByForgottenPasswordToken\GetMelomaniacByForgottenPasswordToken;
 use Keez\Domain\Melomaniac\RequestForgottenPassword\ForgottenPasswordRequest;
 use Keez\Domain\Melomaniac\RequestForgottenPassword\RequestForgottenPassword;
+use Keez\Domain\Melomaniac\ResetPassword\NewPassword;
+use Keez\Domain\Melomaniac\ResetPassword\ResetPassword;
 
 return function (Container $container): void {
   $container
@@ -49,6 +51,13 @@ return function (Container $container): void {
         $container->get(UuidGeneratorInterface::class),
         $container->get(MelomaniacGateway::class),
         $container->get(EventDispatcher::class)
+      )
+    )
+    ->set(
+      ResetPassword::class,
+      static fn (Container $container): ResetPassword => new ResetPassword(
+        $container->get(PasswordHasherInterface::class),
+        $container->get(MelomaniacGateway::class)
       )
     )
     ->set(
@@ -89,6 +98,7 @@ return function (Container $container): void {
       static fn (Container $container): CommandBus => new TestCommandBus($container, [
         Registration::class => Register::class,
         ForgottenPasswordRequest::class => RequestForgottenPassword::class,
+        NewPassword::class => ResetPassword::class,
       ])
     );
 };

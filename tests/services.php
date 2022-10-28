@@ -24,8 +24,11 @@ use Keez\Domain\Melomaniac\Register\UniqueEmailValidator;
 use Keez\Domain\Melomaniac\GetMelomaniacByForgottenPasswordToken\GetMelomaniacByForgottenPasswordToken;
 use Keez\Domain\Melomaniac\RequestForgottenPassword\ForgottenPasswordRequest;
 use Keez\Domain\Melomaniac\RequestForgottenPassword\RequestForgottenPassword;
-use Keez\Domain\Melomaniac\ResetPassword\NewPassword;
+use Keez\Domain\Melomaniac\ResetPassword\NewPassword as ResetPasswordNewPassword;
 use Keez\Domain\Melomaniac\ResetPassword\ResetPassword;
+use Keez\Domain\Melomaniac\UpdatePassword\CurrentPasswordValidator;
+use Keez\Domain\Melomaniac\UpdatePassword\NewPassword as UpdatePasswordNewPassword;
+use Keez\Domain\Melomaniac\UpdatePassword\UpdatePassword;
 
 return function (Container $container): void {
   $container
@@ -61,6 +64,13 @@ return function (Container $container): void {
       )
     )
     ->set(
+      UpdatePassword::class,
+      static fn (Container $container): UpdatePassword => new UpdatePassword(
+        $container->get(PasswordHasherInterface::class),
+        $container->get(MelomaniacGateway::class)
+      )
+    )
+    ->set(
       MelomaniacGateway::class,
       static fn (Container $container): MelomaniacGateway => new InMemoryMelomaniacRepository()
     )
@@ -76,6 +86,12 @@ return function (Container $container): void {
       UniqueEmailValidator::class,
       static fn (Container $container): UniqueEmailValidator => new UniqueEmailValidator(
         $container->get(MelomaniacGateway::class)
+      )
+    )
+    ->set(
+      CurrentPasswordValidator::class,
+      static fn (Container $container): CurrentPasswordValidator => new CurrentPasswordValidator(
+        $container->get(PasswordHasherInterface::class)
       )
     )
     ->set(
@@ -98,7 +114,8 @@ return function (Container $container): void {
       static fn (Container $container): CommandBus => new TestCommandBus($container, [
         Registration::class => Register::class,
         ForgottenPasswordRequest::class => RequestForgottenPassword::class,
-        NewPassword::class => ResetPassword::class,
+        ResetPasswordNewPassword::class => ResetPassword::class,
+        UpdatePasswordNewPassword::class => UpdatePassword::class,
       ])
     );
 };

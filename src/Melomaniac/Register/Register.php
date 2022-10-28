@@ -28,6 +28,7 @@ final class Register implements CommandHandler
     $melomaniac = Melomaniac::create(
       id: $this->ulidGenerator->generate(),
       email: $registration->email,
+      nickname: $registration->nickname,
       password: $this->passwordHasher->hash($registration->plainPassword)
     );
 

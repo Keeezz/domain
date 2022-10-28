@@ -7,6 +7,7 @@ use Keez\Domain\Shared\Command\CommandBus;
 use Keez\Domain\Melomaniac\MelomaniacGateway;
 use Keez\Domain\Melomaniac\Register\Register;
 use Keez\Domain\Melomaniac\Register\Registration;
+use Keez\Domain\Melomaniac\UpdateProfile\Profile;
 use Keez\Domain\Shared\Uid\UlidGeneratorInterface;
 use Keez\Domain\Shared\Uid\UuidGeneratorInterface;
 use Keez\Domain\Tests\Application\CQRS\TestQueryBus;
@@ -15,8 +16,9 @@ use Keez\Domain\Tests\Application\Uid\UuidGenerator;
 use Keez\Domain\Tests\Application\Container\Container;
 use Keez\Domain\Tests\Application\CQRS\TestCommandBus;
 use Keez\Domain\Melomaniac\ResetPassword\ResetPassword;
+use Keez\Domain\Melomaniac\UpdateProfile\UpdateProfile;
 use Keez\Domain\Shared\EventDispatcher\EventDispatcher;
-use Keez\Domain\Melomaniac\Register\UniqueEmailValidator;
+use Keez\Domain\Melomaniac\Register\UniqueEmailValidator as RegisterUniqueEmailValidator;
 use Keez\Domain\Melomaniac\UpdatePassword\UpdatePassword;
 use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactory;
@@ -27,10 +29,11 @@ use Keez\Domain\Melomaniac\ValidateRegistration\ValidationOfRegistration;
 use Keez\Domain\Tests\Application\Repository\InMemoryMelomaniacRepository;
 use Keez\Domain\Melomaniac\RequestForgottenPassword\ForgottenPasswordRequest;
 use Keez\Domain\Melomaniac\RequestForgottenPassword\RequestForgottenPassword;
-use Keez\Domain\Melomaniac\ValidateRegistration\RegistrationTokenExistsValidator;
 use Keez\Domain\Melomaniac\ResetPassword\NewPassword as ResetPasswordNewPassword;
+use Keez\Domain\Melomaniac\ValidateRegistration\RegistrationTokenExistsValidator;
 use Keez\Domain\Melomaniac\UpdatePassword\NewPassword as UpdatePasswordNewPassword;
 use Keez\Domain\Melomaniac\GetMelomaniacByForgottenPasswordToken\ForgottenPasswordToken;
+use Keez\Domain\Melomaniac\UpdateProfile\UniqueEmailValidator as UpdateProfileUniqueEmailValidator;
 use Keez\Domain\Melomaniac\GetMelomaniacByForgottenPasswordToken\GetMelomaniacByForgottenPasswordToken;
 
 return function (Container $container): void {
@@ -74,6 +77,12 @@ return function (Container $container): void {
       )
     )
     ->set(
+      UpdateProfile::class,
+      static fn (Container $container): UpdateProfile => new UpdateProfile(
+        $container->get(MelomaniacGateway::class)
+      )
+    )
+    ->set(
       ValidateRegistration::class,
       static fn (Container $container): ValidateRegistration => new ValidateRegistration(
         $container->get(MelomaniacGateway::class)
@@ -92,8 +101,14 @@ return function (Container $container): void {
       static fn (Container $container): UlidGeneratorInterface => new UlidGenerator()
     )
     ->set(
-      UniqueEmailValidator::class,
-      static fn (Container $container): UniqueEmailValidator => new UniqueEmailValidator(
+      UpdateProfileUniqueEmailValidator::class,
+      static fn (Container $container): UpdateProfileUniqueEmailValidator => new UpdateProfileUniqueEmailValidator(
+        $container->get(MelomaniacGateway::class)
+      )
+    )
+    ->set(
+      RegisterUniqueEmailValidator::class,
+      static fn (Container $container): RegisterUniqueEmailValidator => new RegisterUniqueEmailValidator(
         $container->get(MelomaniacGateway::class)
       )
     )
@@ -132,6 +147,7 @@ return function (Container $container): void {
         ResetPasswordNewPassword::class => ResetPassword::class,
         UpdatePasswordNewPassword::class => UpdatePassword::class,
         ValidationOfRegistration::class => ValidateRegistration::class,
+        Profile::class => UpdateProfile::class,
       ])
     );
 };

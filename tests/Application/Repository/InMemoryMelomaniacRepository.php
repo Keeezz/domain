@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Keez\Domain\Tests\Application\Repository;
 
+use Symfony\Component\Uid\Ulid;
 use Keez\Domain\Melomaniac\Melomaniac;
 use Keez\Domain\Melomaniac\MelomaniacGateway;
-use Symfony\Component\Uid\Ulid;
 
 final class InMemoryMelomaniacRepository implements MelomaniacGateway
 {
@@ -22,6 +22,7 @@ final class InMemoryMelomaniacRepository implements MelomaniacGateway
     return Melomaniac::create(
       id: Ulid::fromString($ulid),
       email: sprintf('melomaniac+%d@email.com', $index),
+      nickname: sprintf('melomaniac+%d', $index),
       password: 'hashed_password'
     );
   }

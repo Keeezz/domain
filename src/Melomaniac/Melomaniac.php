@@ -13,7 +13,13 @@ final class Melomaniac
 
   private string $email;
 
+  private string $nickname;
+
   private string $password;
+
+  private ?Gender $gender = null;
+
+  private ?string $avatar = null;
 
   private ?Uuid $registrationToken = null;
 
@@ -26,7 +32,10 @@ final class Melomaniac
   public static function create(
     Ulid $id,
     string $email,
+    string $nickname,
     string $password,
+    ?Gender $gender = null,
+    ?string $avatar = null,
     ?Uuid $registrationToken = null,
     ?DateTimeInterface $registeredAt = null,
     ?Uuid $forgottenPasswordToken = null,
@@ -34,8 +43,11 @@ final class Melomaniac
   ): self {
     $melomaniac = new self();
     $melomaniac->id = $id;
+    $melomaniac->gender = $gender;
     $melomaniac->email = $email;
+    $melomaniac->nickname = $nickname;
     $melomaniac->password = $password;
+    $melomaniac->avatar = $avatar;
     $melomaniac->registrationToken = $registrationToken;
     $melomaniac->registeredAt = $registeredAt;
     $melomaniac->forgottenPasswordToken = $forgottenPasswordToken;
@@ -54,9 +66,24 @@ final class Melomaniac
     return $this->email;
   }
 
+  public function nickname(): string
+  {
+    return $this->nickname;
+  }
+
   public function password(): string
   {
     return $this->password;
+  }
+
+  public function gender(): ?Gender
+  {
+    return $this->gender;
+  }
+
+  public function avatar(): ?string
+  {
+    return $this->avatar;
   }
 
   public function registrationToken(): ?Uuid
@@ -84,9 +111,12 @@ final class Melomaniac
     return null !== $this->forgottenPasswordExpiredAt && $this->forgottenPasswordExpiredAt < new DateTimeImmutable();
   }
 
-  public function update(string $email): void
+  public function update(string $email, Gender $gender, string $nickname, ?string $avatar = null): void
   {
     $this->email = $email;
+    $this->nickname = $nickname;
+    $this->avatar = $avatar;
+    $this->gender = $gender;
   }
 
   public function prepareValidationOfRegistration(?Uuid $registrationToken): void

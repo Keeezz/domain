@@ -17,6 +17,9 @@ final class Registration implements Command
   public string $email;
 
   #[NotBlank]
+  public string $nickname;
+
+  #[NotBlank]
   #[Regex(pattern: '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/')]
   public string $plainPassword;
 }

@@ -48,11 +48,12 @@ final class RegisterTest extends CommandTestCase
     yield 'invalid plainPassword' => [self::createRegistration(plainPassword: 'fail')];
   }
 
-  private static function createRegistration(string $email = "melomaniac@email.com", string $plainPassword = "Password123!"): Registration
+  private static function createRegistration(string $email = "melomaniac@email.com", string $nickname = 'melomaniac', string $plainPassword = "Password123!"): Registration
   {
     $registration = new Registration();
 
     $registration->email = $email;
+    $registration->nickname = $nickname;
     $registration->plainPassword = $plainPassword;
 
     return $registration;

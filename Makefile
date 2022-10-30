@@ -12,6 +12,8 @@ else
 	php :=
 endif
 
+DISABLE_XDEBUG=XDEBUG_MODE=off
+
 .DEFAULT_GOAL := help
 .PHONY: help
 help: ## Affiche cette aide
@@ -28,3 +30,7 @@ test-watch: ## Start test watcher
 .PHONY: run-fish
 run-fish: ## Start fish
 	$(de) php fish
+
+.PHONY: phpstan
+phpstan:
+	$(DISABLE_XDEBUG) php vendor/bin/phpstan analyse -c phpstan.neon

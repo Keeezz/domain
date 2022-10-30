@@ -2,7 +2,7 @@
     "name": "keez/domain",
     "description": "Business domain of the Keez project",
     "type": "library",
-    "license": "LGPL",
+    "license": "LGPL-2.1",
     "minimum-stability": "stable",
     "prefer-stable": true,
     "authors": [
@@ -21,6 +21,19 @@
             "Keez\\Domain\\Tests\\": "tests/"
         }
     },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false,
+            "require": "6.1"
+        }
+    },
     "require": {
         "php": ">=8.1.0",
         "psr/event-dispatcher": "^1.0",
@@ -33,6 +46,10 @@
         "symfony/messenger": "^6.1",
         "symfony/var-dumper": "^6.1",
         "phpunit/phpunit": "^9.5",
-        "spatie/phpunit-watcher": "^1.23"
+        "spatie/phpunit-watcher": "^1.23",
+        "phpstan/phpstan": "^1.8",
+        "phpstan/phpstan-deprecation-rules": "^1.0",
+        "phpstan/phpstan-phpunit": "^1.2",
+        "phpstan/phpstan-strict-rules": "^1.4"
     }
 }

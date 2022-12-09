@@ -42,7 +42,6 @@
         "symfony/validator": "^6.1"
     },
     "require-dev": {
-        "behat/behat": "^3.11",
         "symfony/messenger": "^6.1",
         "symfony/var-dumper": "^6.1",
         "phpunit/phpunit": "^9.5",
@@ -50,6 +49,7 @@
         "phpstan/phpstan": "^1.8",
         "phpstan/phpstan-deprecation-rules": "^1.0",
         "phpstan/phpstan-phpunit": "^1.2",
-        "phpstan/phpstan-strict-rules": "^1.4"
+        "phpstan/phpstan-strict-rules": "^1.4",
+        "friendsofphp/php-cs-fixer": "^3.13"
     }
 }

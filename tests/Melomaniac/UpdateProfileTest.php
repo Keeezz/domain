@@ -61,7 +61,7 @@ final class UpdateProfileTest extends CommandTestCase
   }
 
   private static function createProfile(
-    Gender $gender = Gender::Female,
+    ?Gender $gender = Gender::Female,
     string $email = 'melomaniac@email.com',
     string $nickname = 'melomaniac',
     string $avatar = 'avatar.png'

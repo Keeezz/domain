@@ -111,7 +111,7 @@ final class Melomaniac
     return null !== $this->forgottenPasswordExpiredAt && $this->forgottenPasswordExpiredAt < new DateTimeImmutable();
   }
 
-  public function update(string $email, Gender $gender, string $nickname, ?string $avatar = null): void
+  public function update(string $email, ?Gender $gender, string $nickname, ?string $avatar = null): void
   {
     $this->email = $email;
     $this->nickname = $nickname;

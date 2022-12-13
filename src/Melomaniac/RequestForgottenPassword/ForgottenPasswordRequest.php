@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 final class ForgottenPasswordRequest implements Command
 {
-  #[Email]
-  #[NotBlank]
-  public string $email;
+    #[Email]
+    #[NotBlank]
+    public string $email;
 }

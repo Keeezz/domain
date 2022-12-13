@@ -10,23 +10,23 @@ use Keez\Domain\Shared\Query\QueryHandler;
 
 final class GetMelomaniacByForgottenPasswordToken implements QueryHandler
 {
-  public function __construct(
+    public function __construct(
     private MelomaniacGateway $melomaniacGateway
   ) {
-  }
-
-  public function __invoke(ForgottenPasswordToken $query): ?Melomaniac
-  {
-    $melomaniac = $this->melomaniacGateway->getMelomaniacByForgottenPasswordToken($query->token);
-
-    if (null === $melomaniac) {
-      return null;
     }
 
-    if ($melomaniac->hasForgottenPasswordTokenExpired()) {
-      throw new ForgottenPasswordTokenExpiredException();
-    }
+    public function __invoke(ForgottenPasswordToken $query): ?Melomaniac
+    {
+        $melomaniac = $this->melomaniacGateway->getMelomaniacByForgottenPasswordToken($query->token);
 
-    return $melomaniac;
-  }
+        if (null === $melomaniac) {
+            return null;
+        }
+
+        if ($melomaniac->hasForgottenPasswordTokenExpired()) {
+            throw new ForgottenPasswordTokenExpiredException();
+        }
+
+        return $melomaniac;
+    }
 }

@@ -13,25 +13,25 @@ use Symfony\Component\Validator\Validation;
 
 final class TestQueryBus implements QueryBus
 {
-  public function __construct(private ContainerInterface $container, private array $handlers)
-  {
-  }
-
-  public function fetch(Query $query): mixed
-  {
-    $constraintValidatorFactory = new ContainerConstraintValidatorFactory($this->container);
-
-    $validator = Validation::createValidatorBuilder()
-      ->setConstraintValidatorFactory($constraintValidatorFactory)
-      ->enableAnnotationMapping()
-      ->getValidator();
-
-    $violations = $validator->validate($query);
-
-    if (count($violations) > 0) {
-      throw new ValidationFailedException($query, $violations);
+    public function __construct(private ContainerInterface $container, private array $handlers)
+    {
     }
 
-    return $this->container->get($this->handlers[$query::class])->__invoke($query);
-  }
+    public function fetch(Query $query): mixed
+    {
+        $constraintValidatorFactory = new ContainerConstraintValidatorFactory($this->container);
+
+        $validator = Validation::createValidatorBuilder()
+          ->setConstraintValidatorFactory($constraintValidatorFactory)
+          ->enableAnnotationMapping()
+          ->getValidator();
+
+        $violations = $validator->validate($query);
+
+        if (count($violations) > 0) {
+            throw new ValidationFailedException($query, $violations);
+        }
+
+        return $this->container->get($this->handlers[$query::class])->__invoke($query);
+    }
 }

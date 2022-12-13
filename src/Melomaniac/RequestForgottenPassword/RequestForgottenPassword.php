@@ -11,23 +11,23 @@ use Keez\Domain\Shared\Uid\UuidGeneratorInterface;
 
 final class RequestForgottenPassword implements CommandHandler
 {
-  public function __construct(
+    public function __construct(
     private UuidGeneratorInterface $uuidGenerator,
     private MelomaniacGateway $melomaniacGateway,
     private EventDispatcher $eventDispatcher
   ) {
-  }
-
-  public function __invoke(ForgottenPasswordRequest $forgottenPasswordRequest): void
-  {
-    $melomaniac = $this->melomaniacGateway->getMelomaniacByEmail($forgottenPasswordRequest->email);
-
-    if (null === $melomaniac) {
-      return;
     }
 
-    $melomaniac->forgotPassword($this->uuidGenerator->generate());
-    $this->melomaniacGateway->update($melomaniac);
-    $this->eventDispatcher->dispatch(new ForgottenPasswordRequested($melomaniac));
-  }
+    public function __invoke(ForgottenPasswordRequest $forgottenPasswordRequest): void
+    {
+        $melomaniac = $this->melomaniacGateway->getMelomaniacByEmail($forgottenPasswordRequest->email);
+
+        if (null === $melomaniac) {
+            return;
+        }
+
+        $melomaniac->forgotPassword($this->uuidGenerator->generate());
+        $this->melomaniacGateway->update($melomaniac);
+        $this->eventDispatcher->dispatch(new ForgottenPasswordRequested($melomaniac));
+    }
 }

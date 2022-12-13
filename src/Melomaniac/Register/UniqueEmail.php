@@ -7,13 +7,13 @@ namespace Keez\Domain\Melomaniac\Register;
 use Attribute;
 use Symfony\Component\Validator\Constraint;
 
-#[Attribute]
+#[\Attribute]
 final class UniqueEmail extends Constraint
 {
-  public string $message = 'This email is already used.';
+    public string $message = 'This email is already used.';
 
-  public function validatedBy(): string
-  {
-    return UniqueEmailValidator::class;
-  }
+    public function validatedBy(): string
+    {
+        return UniqueEmailValidator::class;
+    }
 }

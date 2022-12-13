@@ -10,16 +10,16 @@ use Keez\Domain\Shared\Command\CommandHandler;
 
 final class ValidateRegistration implements CommandHandler
 {
-  public function __construct(private MelomaniacGateway $melomaniacGateway)
-  {
-  }
+    public function __construct(private MelomaniacGateway $melomaniacGateway)
+    {
+    }
 
-  public function __invoke(ValidationOfRegistration $validationOfRegistration): void
-  {
-    /** @var Melomaniac $melomaniac */
-    $melomaniac = $this->melomaniacGateway->getMelomaniacByRegistrationToken($validationOfRegistration->registrationToken);
-    $melomaniac->validateRegistration();
+    public function __invoke(ValidationOfRegistration $validationOfRegistration): void
+    {
+        /** @var Melomaniac $melomaniac */
+        $melomaniac = $this->melomaniacGateway->getMelomaniacByRegistrationToken($validationOfRegistration->registrationToken);
+        $melomaniac->validateRegistration();
 
-    $this->melomaniacGateway->update($melomaniac);
-  }
+        $this->melomaniacGateway->update($melomaniac);
+    }
 }

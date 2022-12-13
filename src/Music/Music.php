@@ -8,46 +8,46 @@ use Symfony\Component\Uid\Ulid;
 
 final class Music
 {
-  private Ulid $id;
+    private Ulid $id;
 
-  private string $title;
+    private string $title;
 
-  private string $duration;
+    private string $duration;
 
-  private string $slug;
+    private string $slug;
 
-  public static function create(
+    public static function create(
     Ulid $id,
     string $title,
     string $duration,
     string $slug
   ): self {
-    $music = new self();
-    $music->id = $id;
-    $music->duration = $duration;
-    $music->title = $title;
-    $music->slug = $slug;
+        $music = new self();
+        $music->id = $id;
+        $music->duration = $duration;
+        $music->title = $title;
+        $music->slug = $slug;
 
-    return $music;
-  }
+        return $music;
+    }
 
-  public function id(): Ulid
-  {
-    return $this->id;
-  }
+    public function id(): Ulid
+    {
+        return $this->id;
+    }
 
-  public function title(): string
-  {
-    return $this->title;
-  }
+    public function title(): string
+    {
+        return $this->title;
+    }
 
-  public function duration(): string
-  {
-    return $this->duration;
-  }
+    public function duration(): string
+    {
+        return $this->duration;
+    }
 
-  public function slug(): string
-  {
-    return $this->slug;
-  }
+    public function slug(): string
+    {
+        return $this->slug;
+    }
 }

@@ -6,6 +6,6 @@ namespace Keez\Domain\Melomaniac;
 
 enum Gender: string
 {
-  case Female = 'Femme';
-  case Male = 'Homme';
+    case Female = 'Femme';
+    case Male = 'Homme';
 }

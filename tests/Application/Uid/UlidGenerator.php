@@ -9,8 +9,8 @@ use Symfony\Component\Uid\Ulid;
 
 final class UlidGenerator implements UlidGeneratorInterface
 {
-  public function generate(): Ulid
-  {
-    return new Ulid();
-  }
+    public function generate(): Ulid
+    {
+        return new Ulid();
+    }
 }

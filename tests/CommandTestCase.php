@@ -11,16 +11,16 @@ use Keez\Domain\Tests\Application\EventDispatcher\TestEventDispatcher;
 
 abstract class CommandTestCase extends ContainerTestCase
 {
-  protected CommandBus $commandBus;
+    protected CommandBus $commandBus;
 
-  protected TestEventDispatcher $eventDispatcher;
+    protected TestEventDispatcher $eventDispatcher;
 
-  protected Container $container;
+    protected Container $container;
 
-  public function setUp(): void
-  {
-    $this->container = self::createContainer();
-    $this->commandBus = $this->container->get(CommandBus::class);
-    $this->eventDispatcher = $this->container->get(EventDispatcher::class);
-  }
+    public function setUp(): void
+    {
+        $this->container = self::createContainer();
+        $this->commandBus = $this->container->get(CommandBus::class);
+        $this->eventDispatcher = $this->container->get(EventDispatcher::class);
+    }
 }

@@ -10,17 +10,17 @@ use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
 final class UpdatePassword implements CommandHandler
 {
-  public function __construct(
+    public function __construct(
     private PasswordHasherInterface $passwordHasher,
     private MelomaniacGateway $melomaniacGateway
   ) {
-  }
+    }
 
-  public function __invoke(NewPassword $newPassword): void
-  {
-    $melomaniac = $newPassword->melomaniac;
-    $melomaniac->newPassword($this->passwordHasher->hash($newPassword->plainPassword));
+    public function __invoke(NewPassword $newPassword): void
+    {
+        $melomaniac = $newPassword->melomaniac;
+        $melomaniac->newPassword($this->passwordHasher->hash($newPassword->plainPassword));
 
-    $this->melomaniacGateway->update($melomaniac);
-  }
+        $this->melomaniacGateway->update($melomaniac);
+    }
 }

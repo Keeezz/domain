@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 final class MusicCreation implements Command
 {
-  public function __construct(
+    public function __construct(
     #[NotBlank]
     public string $title,
     #[NotBlank]
@@ -17,5 +17,5 @@ final class MusicCreation implements Command
     #[NotBlank]
     public string $slug
   ) {
-  }
+    }
 }

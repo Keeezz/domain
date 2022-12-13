@@ -9,7 +9,7 @@ use Keez\Domain\Shared\EventDispatcher\Event;
 
 final class MusicCreated implements Event
 {
-  public function __construct(public Music $music)
-  {
-  }
+    public function __construct(public Music $music)
+    {
+    }
 }

@@ -8,7 +8,7 @@ use Keez\Domain\Shared\Gateway;
 
 interface MusicGateway extends Gateway
 {
-  public function create(Music $music): void;
+    public function create(Music $music): void;
 
-  public function getMusicBySlug(string $slug): Music;
+    public function getMusicBySlug(string $slug): Music;
 }

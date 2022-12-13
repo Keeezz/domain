@@ -6,5 +6,5 @@ namespace Keez\Domain\Shared\Query;
 
 interface QueryBus
 {
-  public function fetch(Query $query): mixed;
+    public function fetch(Query $query): mixed;
 }

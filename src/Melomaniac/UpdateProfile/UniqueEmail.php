@@ -8,21 +8,21 @@ use Attribute;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-#[Attribute(flags: Attribute::TARGET_CLASS)]
+#[\Attribute(flags: \Attribute::TARGET_CLASS)]
 final class UniqueEmail extends Constraint
 {
-  public string $message = 'This email is already used.';
+    public string $message = 'This email is already used.';
 
-  /**
-   * @return class-string<ConstraintValidator>
-   */
-  public function validatedBy(): string
-  {
-    return UniqueEmailValidator::class;
-  }
+    /**
+     * @return class-string<ConstraintValidator>
+     */
+    public function validatedBy(): string
+    {
+        return UniqueEmailValidator::class;
+    }
 
-  public function getTargets(): string
-  {
-    return parent::CLASS_CONSTRAINT;
-  }
+    public function getTargets(): string
+    {
+        return parent::CLASS_CONSTRAINT;
+    }
 }

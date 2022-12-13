@@ -8,5 +8,5 @@ use Symfony\Component\Uid\Uuid;
 
 interface UuidGeneratorInterface
 {
-  public function generate(): Uuid;
+    public function generate(): Uuid;
 }

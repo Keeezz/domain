@@ -9,7 +9,7 @@ use Keez\Domain\Shared\EventDispatcher\Event;
 
 final class ForgottenPasswordRequested implements Event
 {
-  public function __construct(public Melomaniac $melomaniac)
-  {
-  }
+    public function __construct(public Melomaniac $melomaniac)
+    {
+    }
 }

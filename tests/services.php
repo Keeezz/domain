@@ -35,9 +35,25 @@ use Keez\Domain\Melomaniac\UpdatePassword\NewPassword as UpdatePasswordNewPasswo
 use Keez\Domain\Melomaniac\GetMelomaniacByForgottenPasswordToken\ForgottenPasswordToken;
 use Keez\Domain\Melomaniac\UpdateProfile\UniqueEmailValidator as UpdateProfileUniqueEmailValidator;
 use Keez\Domain\Melomaniac\GetMelomaniacByForgottenPasswordToken\GetMelomaniacByForgottenPasswordToken;
+use Keez\Domain\Music\CreateMusic\CreateMusic;
+use Keez\Domain\Music\CreateMusic\MusicCreation;
+use Keez\Domain\Music\MusicGateway;
+use Keez\Domain\Tests\Application\Repository\InMemoryMusicRepository;
 
 return function (Container $container): void {
   $container
+    ->set(
+      CreateMusic::class,
+      static fn (Container $container): CreateMusic => new CreateMusic(
+        $container->get(UlidGeneratorInterface::class),
+        $container->get(MusicGateway::class),
+        $container->get(EventDispatcher::class)
+      )
+    )
+    ->set(
+      MusicGateway::class,
+      static fn (Container $container): MusicGateway => new InMemoryMusicRepository()
+    )
     ->set(
       GetMelomaniacByForgottenPasswordToken::class,
       static fn (Container $container): GetMelomaniacByForgottenPasswordToken => new GetMelomaniacByForgottenPasswordToken(
@@ -143,6 +159,7 @@ return function (Container $container): void {
       CommandBus::class,
       static fn (Container $container): CommandBus => new TestCommandBus($container, [
         Registration::class => Register::class,
+        MusicCreation::class => CreateMusic::class,
         ForgottenPasswordRequest::class => RequestForgottenPassword::class,
         ResetPasswordNewPassword::class => ResetPassword::class,
         UpdatePasswordNewPassword::class => UpdatePassword::class,
